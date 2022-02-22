@@ -207,7 +207,9 @@ namespace car_service
                 }
 
                 Console.Clear();
+
                 ShowMessage("Извините сервис временно закрыт ", ConsoleColor.Red);
+
                 Console.ReadKey();
             }
 
