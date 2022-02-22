@@ -177,7 +177,7 @@ namespace car_service
 
                                 ShowMessage("Ваша машина успешно отремонтирована", ConsoleColor.Cyan);
 
-                                Receipt(notServiceability);
+                                ShowReceipt(notServiceability);
                             }
                             else
                             {
@@ -300,7 +300,7 @@ namespace car_service
                 return 0;
             }
 
-            private void Receipt(string notServiceability)
+            private void ShowReceipt(string notServiceability)
             {
                 ShowMessage($"\n\nКвитанция\n\nЗамена детали {notServiceability} = {GetPriceDetail(notServiceability)}\nЦена работы = {GetPriceWork(notServiceability)}", ConsoleColor.Blue);
             }
