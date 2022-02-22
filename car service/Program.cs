@@ -37,13 +37,13 @@ namespace car_service
             public bool IsBattery { get; private set; }
             public bool IsWheel { get; private set; }
 
-            public Car(string title, bool isEngineRunning, bool isInjectorRunning, bool isBatteryRunning, bool isWheelRunning)
+            public Car(string title, bool isEngine, bool isInjector, bool isBattery, bool isWheel)
             {
                 Title = title;
-                IsEngine = isEngineRunning;
-                IsInjector = isInjectorRunning;
-                IsBattery = isBatteryRunning;
-                IsWheel = isWheelRunning;
+                IsEngine = isEngine;
+                IsInjector = isInjector;
+                IsBattery = isBattery;
+                IsWheel = isWheel;
             }
 
             public void TryFix(string notServiceability)
