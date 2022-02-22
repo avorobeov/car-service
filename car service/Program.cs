@@ -200,10 +200,15 @@ namespace car_service
                   
                     ShowInfo();
 
+                    ShowMessage("Нажмите любую кнопку для продолжения", ConsoleColor.Green);
+
                     Console.ReadKey();
                     Console.Clear();
                 }
+
+                Console.Clear();
                 ShowMessage("Извините сервис временно закрыт ", ConsoleColor.Red);
+                Console.ReadKey();
             }
 
             private bool GetDecisions()
