@@ -101,6 +101,7 @@ namespace car_service
             private Queue<Customer> _customers = new Queue<Customer>();
 
             private int _amountCompensation = 15;
+         
             public int Money { get; private set; }
 
             public CarService(int money)
