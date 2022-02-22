@@ -19,29 +19,30 @@ namespace car_service
         {
             public int Price { get; private set; }
             public string Title { get; private set; }
-
-            public Detail(int price,string title)
+            public int PriceWork { get; private set; }
+            public Detail(int price,string title, int priceWork)
             {
                 Price = price;
                 Title = title;
+                PriceWork = priceWork;
             }
         }
 
         class Car
         {
             public string Title { get; private set; }
-            public bool Engine { get; private set; }
-            public bool Injector { get; private set; }
-            public bool Battery { get; private set; }
-            public bool Wheel { get; private set; }
+            public bool IsEngineRunning { get; private set; }
+            public bool IsInjectorRunning { get; private set; }
+            public bool IsBatteryRunning { get; private set; }
+            public bool IsWheelRunning { get; private set; }
 
-            public Car(string title, bool engine, bool injector, bool battery, bool wheel)
+            public Car(string title, bool isEngineRunning, bool isInjectorRunning, bool isBatteryRunning, bool isWheelRunning)
             {
                 Title = title;
-                Engine = engine;
-                Injector = injector;
-                Battery = battery;
-                Wheel = wheel;
+                IsEngineRunning = isEngineRunning;
+                IsInjectorRunning = isInjectorRunning;
+                IsBatteryRunning = isBatteryRunning;
+                IsWheelRunning = isWheelRunning;
             }
 
             public void TryFix(string notServiceability)
@@ -49,19 +50,19 @@ namespace car_service
                 switch (notServiceability)
                 {
                     case "Engine":
-                        Engine = true;
+                        IsEngineRunning = true;
                         break;
 
                     case "Injector":
-                        Injector = true;
+                        IsInjectorRunning = true;
                         break;
 
                     case "Battery":
-                        Battery = true;
+                        IsBatteryRunning = true;
                         break;
 
                     case "Wheel":
-                        Wheel = true;
+                        IsWheelRunning = true;
                         break;
                 }
             }
@@ -108,17 +109,17 @@ namespace car_service
             {
                 Money = money;
 
-                _details.Add(new Detail(100, "Engine"));
-                _details.Add(new Detail(100, "Engine"));
+                _details.Add(new Detail(100, "Engine", 60));
+                _details.Add(new Detail(100, "Engine", 60));
 
-                _details.Add(new Detail(30, "Injector"));
-                _details.Add(new Detail(30, "Injector"));
+                _details.Add(new Detail(30, "Injector", 15));
+                _details.Add(new Detail(30, "Injector", 15));
 
-                _details.Add(new Detail(50, "Battery"));
-                _details.Add(new Detail(50, "Battery"));
+                _details.Add(new Detail(50, "Battery", 25));
+                _details.Add(new Detail(50, "Battery", 25));
 
-                _details.Add(new Detail(10, "Wheel"));
-                _details.Add(new Detail(10, "Wheel"));
+                _details.Add(new Detail(10, "Wheel", 5));
+                _details.Add(new Detail(10, "Wheel", 5));
 
                 _customers.Enqueue(new Customer(new Car("Audi", false, true, true, true), 120));
                 _customers.Enqueue(new Customer(new Car("Audi", true, true, false, true), 10));
@@ -247,19 +248,19 @@ namespace car_service
 
             private string GetNotServiceability(Car car)
             {
-                if (car.Engine != true)
+                if (car.IsEngineRunning != true)
                 {
                     return "Engine";
                 }
-                else if (car.Injector != true)
+                else if (car.IsInjectorRunning != true)
                 {
                     return "Injector";
                 }
-                else if (car.Battery != true)
+                else if (car.IsBatteryRunning != true)
                 {
                     return "Battery";
                 }
-                else if (car.Wheel != true)
+                else if (car.IsWheelRunning != true)
                 {
                     return "Wheel";
                 }
@@ -269,44 +270,32 @@ namespace car_service
       
             private int GetPriceDetail(string notServiceability)
             {
-                switch (notServiceability)
+                Detail detail = _details.Find(detailTitle => detailTitle.Title.Contains(notServiceability));
+
+                if (detail != null)
                 {
-                    case "Engine":
-                        return 70;
-
-                    case "Injector":
-                        return 20;
-
-                    case "Battery":
-                        return 10;
-
-                    case "Wheel":
-                        return 5;
+                    return detail.Price;
                 }
-
-                return 0;
+                else
+                {
+                    return 0;
+                }
             }
-      
+
             private int GetPriceWork(string notServiceability)
             {
-                switch (notServiceability)
+                Detail detail = _details.Find(detailTitle => detailTitle.Title.Contains(notServiceability));
+
+                if (detail != null)
                 {
-                    case "Engine":
-                        return 70;
-
-                    case "Injector":
-                        return 20;
-
-                    case "Battery":
-                        return 10;
-
-                    case "Wheel":
-                        return 5;
+                    return detail.PriceWork;
                 }
-
-                return 0;
+                else
+                {
+                    return 0;
+                }
             }
-
+          
             private void ShowReceipt(string notServiceability, int repairPrice)
             {
                 ShowMessage($"\n\nКвитанция\n\nЗамена детали {notServiceability} = {GetPriceDetail(notServiceability)}\nЦена работы = {GetPriceWork(notServiceability)}\nСумма всего ремонта составляет: {repairPrice}", ConsoleColor.Blue);
