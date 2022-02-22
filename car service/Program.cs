@@ -176,6 +176,8 @@ namespace car_service
                                 _details.Remove(detail1);
 
                                 ShowMessage("Ваша машина успешно отремонтирована", ConsoleColor.Cyan);
+
+                                Receipt(notServiceability);
                             }
                             else
                             {
@@ -258,9 +260,9 @@ namespace car_service
                 return "У вас всё хорошо с машиной!";
             }
       
-            private int GetPriceDetail(string failure)
+            private int GetPriceDetail(string notServiceability)
             {
-                switch (failure)
+                switch (notServiceability)
                 {
                     case "Engine":
                         return 70;
@@ -278,9 +280,9 @@ namespace car_service
                 return 0;
             }
       
-            private int GetPriceWork(string failure)
+            private int GetPriceWork(string notServiceability)
             {
-                switch (failure)
+                switch (notServiceability)
                 {
                     case "Engine":
                         return 70;
@@ -296,6 +298,11 @@ namespace car_service
                 }
 
                 return 0;
+            }
+
+            private void Receipt(string notServiceability)
+            {
+                ShowMessage($"\n\nКвитанция\n\nЗамена детали {notServiceability} = {GetPriceDetail(notServiceability)}\nЦена работы = {GetPriceWork(notServiceability)}", ConsoleColor.Blue);
             }
 
             private void ShowInfo()
