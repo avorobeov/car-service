@@ -20,6 +20,7 @@ namespace car_service
             public int Price { get; private set; }
             public string Title { get; private set; }
             public int PriceWork { get; private set; }
+
             public Detail(int price,string title, int priceWork)
             {
                 Price = price;
@@ -31,18 +32,18 @@ namespace car_service
         class Car
         {
             public string Title { get; private set; }
-            public bool IsEngineRunning { get; private set; }
-            public bool IsInjectorRunning { get; private set; }
-            public bool IsBatteryRunning { get; private set; }
-            public bool IsWheelRunning { get; private set; }
+            public bool IsEngine { get; private set; }
+            public bool IsInjector { get; private set; }
+            public bool IsBattery { get; private set; }
+            public bool IsWheel { get; private set; }
 
             public Car(string title, bool isEngineRunning, bool isInjectorRunning, bool isBatteryRunning, bool isWheelRunning)
             {
                 Title = title;
-                IsEngineRunning = isEngineRunning;
-                IsInjectorRunning = isInjectorRunning;
-                IsBatteryRunning = isBatteryRunning;
-                IsWheelRunning = isWheelRunning;
+                IsEngine = isEngineRunning;
+                IsInjector = isInjectorRunning;
+                IsBattery = isBatteryRunning;
+                IsWheel = isWheelRunning;
             }
 
             public void TryFix(string notServiceability)
@@ -50,19 +51,19 @@ namespace car_service
                 switch (notServiceability)
                 {
                     case "Engine":
-                        IsEngineRunning = true;
+                        IsEngine = true;
                         break;
 
                     case "Injector":
-                        IsInjectorRunning = true;
+                        IsInjector = true;
                         break;
 
                     case "Battery":
-                        IsBatteryRunning = true;
+                        IsBattery = true;
                         break;
 
                     case "Wheel":
-                        IsWheelRunning = true;
+                        IsWheel = true;
                         break;
                 }
             }
@@ -248,19 +249,19 @@ namespace car_service
 
             private string GetNotServiceability(Car car)
             {
-                if (car.IsEngineRunning != true)
+                if (car.IsEngine != true)
                 {
                     return "Engine";
                 }
-                else if (car.IsInjectorRunning != true)
+                else if (car.IsInjector != true)
                 {
                     return "Injector";
                 }
-                else if (car.IsBatteryRunning != true)
+                else if (car.IsBattery != true)
                 {
                     return "Battery";
                 }
-                else if (car.IsWheelRunning != true)
+                else if (car.IsWheel != true)
                 {
                     return "Wheel";
                 }
